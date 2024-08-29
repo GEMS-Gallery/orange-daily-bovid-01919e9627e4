@@ -13,6 +13,8 @@
             --text-color: #333333;
             --text-light: #666666;
             --tag-bg: #f0f0f0;
+            --selected-bg: #e6f7ff;
+            --selected-border: #1890ff;
         }
         body, html {
             margin: 0;
@@ -100,12 +102,18 @@
         .sidebar li {
             display: flex;
             align-items: center;
-            padding: 0.5rem 0;
+            padding: 0.5rem 0.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            border-radius: 4px;
         }
         .sidebar li:hover {
-            color: #000;
+            background-color: var(--tag-bg);
+        }
+        .sidebar li.selected {
+            background-color: var(--selected-bg);
+            border-left: 3px solid var(--selected-border);
+            font-weight: 600;
         }
         .sidebar li svg {
             width: 20px;
@@ -316,8 +324,15 @@
                     ? projects 
                     : projects.filter(project => project.category === category);
                 renderProjects(filteredProjects);
+                
+                // Update selected category visual
+                categoryList.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
+                e.target.classList.add('selected');
             }
         });
+
+        // Set 'All' as initially selected
+        categoryList.querySelector('li[data-category="All"]').classList.add('selected');
     }
 
     function initializeSearch() {
