@@ -1,0 +1,20 @@
+type Project = 
+ record {
+   category: text;
+   description: text;
+   featured: bool;
+   github: text;
+   id: nat;
+   image: opt text;
+   recentDeploy: bool;
+   title: text;
+   url: text;
+ };
+service : {
+  getCategories: () -> (vec text) query;
+  getFeaturedProjects: () -> (vec Project) query;
+  getProjects: () -> (vec Project) query;
+  getProjectsByCategory: (text) -> (vec Project) query;
+  getRecentProjects: () -> (vec Project) query;
+  searchProjects: (text) -> (vec Project) query;
+}
